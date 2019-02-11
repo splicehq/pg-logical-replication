@@ -16,12 +16,20 @@ listen_addresses = '*'
 wal_level = logical
 EOF
 
+# Create a database that changes will be published from.
 createdb "$REP_DB"
 
+# Create a replication role with login permission. These credentials will be used to connect to the
+# publisher from the subscriber instance.
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<EOSQL
 CREATE ROLE $REP_USER WITH REPLICATION LOGIN PASSWORD '$REP_PASSWORD';
 EOSQL
 
+# Now we'll set up a very basic schema and insert one row.
+#
+# Then the replication user is granted some permissions to allow it to grab the initial schema.
+#
+# Finally, a publication is created that publishes changes from all tables.
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$REP_DB" <<EOSQL
 CREATE TABLE users (
   id serial primary key,
