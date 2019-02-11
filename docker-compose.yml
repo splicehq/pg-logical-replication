@@ -7,11 +7,22 @@ services:
       - db
     ports:
       - "5500:5432"
+    environment:
+      - REP_DB=rep_test
+      - REP_USER=rep_user
+      - REP_PASSWORD=rep_password
+      - REP_PUB_NAME=rep_test_pub
   replica:
     build: ./replica
     networks:
       - db
     ports:
       - "5501:5432"
+    environment:
+      - REP_DB=rep_test
+      - REP_USER=rep_user
+      - REP_PASSWORD=rep_password
+      - REP_PUB_NAME=rep_test_pub
+      - REP_SUB_NAME=rep_test_sub
 networks:
   db:

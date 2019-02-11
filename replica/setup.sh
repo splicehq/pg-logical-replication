@@ -2,11 +2,6 @@
 
 set -e
 
-REP_DB=rep_test
-REP_USER=rep_user
-REP_PASSWORD=rep_password
-REP_PUB_NAME=rep_test_pub
-REP_SUB_NAME=rep_test_sub
 SCHEMA_PATH=/var/lib/postgresql/schema.sql
 
 createdb "$REP_DB"

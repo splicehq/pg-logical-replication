@@ -2,14 +2,11 @@
 
 set -e
 
-REP_DB=rep_test
-REP_USER=rep_user
-REP_PASSWORD=rep_password
-REP_PUB_NAME=rep_test_pub
-
 createdb "$REP_DB"
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --command "CREATE ROLE $REP_USER WITH REPLICATION LOGIN PASSWORD '$REP_PASSWORD';"
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<EOSQL
+CREATE ROLE $REP_USER WITH REPLICATION LOGIN PASSWORD '$REP_PASSWORD';
+EOSQL
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$REP_DB" <<EOSQL
 CREATE TABLE users (
