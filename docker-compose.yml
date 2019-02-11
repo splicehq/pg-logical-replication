@@ -1,0 +1,17 @@
+version: "3"
+services:
+  master:
+    build: ./master
+    command: postgres -c wal_level=logical
+    networks:
+      - db
+    ports:
+      - "5500:5432"
+  replica:
+    build: ./replica
+    networks:
+      - db
+    ports:
+      - "5501:5432"
+networks:
+  db:
