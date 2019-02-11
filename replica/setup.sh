@@ -14,6 +14,6 @@ psql -v ON_ERROR_STOP=1 --username="$POSTGRES_USER" --dbname "$REP_DB" < "$SCHEM
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$REP_DB" <<EOSQL
 CREATE SUBSCRIPTION $REP_SUB_NAME
-CONNECTION 'host=master dbname=$REP_DB user=$REP_USER password=$REP_PASSWORD port=5432'
+CONNECTION 'host=master dbname=$REP_DB user=$REP_USER password=$REP_PASSWORD port=5432 sslmode=require'
 PUBLICATION $REP_PUB_NAME;
 EOSQL

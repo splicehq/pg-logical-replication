@@ -2,7 +2,7 @@ version: "3"
 services:
   master:
     build: ./master
-    command: postgres -c wal_level=logical
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     networks:
       - db
     ports:
